@@ -1,58 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Save the World with Cats</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            background-color: #fff7e6;
-            padding: 20px;
-        }
-        h1 {
-            color: #ff6600;
-            font-size: 2.5em;
-        }
-        button {
-            padding: 15px 25px;
-            font-size: 1.2em;
-            background-color: #ffcc00;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-        }
-        button:hover {
-            background-color: #ffaa00;
-        }
-        img {
-            max-width: 90%;
-            height: auto;
-            margin-top: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,0,0,0.2);
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Save the World with Cats 🐱</title>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #ff9800;
+      border: none;
+      color: white;
+      padding: 15px 25px;
+      font-size: 18px;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: 0.3s ease;
+    }
+    button:hover {
+      background-color: #e68900;
+      transform: scale(1.05);
+    }
+    img {
+      margin-top: 25px;
+      max-width: 80%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    img.show {
+      opacity: 1;
+    }
+    #loading {
+      color: #555;
+      margin-top: 20px;
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
+  <h1>Click this button to save the world 🐾</h1>
+  <button onclick="showCat()">Save the World!</button>
+  <div id="loading"></div>
+  <div>
+    <img id="catImage" src="" alt="Random Cat" />
+  </div>
 
-    <h1>Click this button to save the world</h1>
-    <button onclick="showRandomCat()">Save the World</button>
-    <div id="cat-container"></div>
+  <script>
+    function showCat() {
+      const catImage = document.getElementById("catImage");
+      const loadingText = document.getElementById("loading");
 
-    <script>
-        async function showRandomCat() {
-            try {
-                const res = await fetch("https://api.thecatapi.com/v1/images/search");
-                const data = await res.json();
-                const catUrl = data[0].url;
-                document.getElementById("cat-container").innerHTML = `<img src="${catUrl}" alt="Random Cat">`;
-            } catch (error) {
-                document.getElementById("cat-container").innerHTML = "<p>Oops! Couldn't load a cat right now.</p>";
-            }
-        }
-    </script>
+      // Show loading text
+      loadingText.textContent = "Summoning the savior cat...";
+      catImage.classList.remove("show");
 
+      fetch("https://api.thecatapi.com/v1/images/search")
+        .then(response => response.json())
+        .then(data => {
+          const catUrl = data[0].url;
+          catImage.src = catUrl;
+          catImage.onload = () => {
+            loadingText.textContent = "";
+            catImage.classList.add("show");
+          };
+        })
+        .catch(() => {
+          loadingText.textContent = "Oops! Couldn’t summon a cat 😿";
+        });
+    }
+  </script>
 </body>
 </html>
