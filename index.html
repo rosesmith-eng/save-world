@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Save the World with Cats</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #fff7e6;
+            padding: 20px;
+        }
+        h1 {
+            color: #ff6600;
+            font-size: 2.5em;
+        }
+        button {
+            padding: 15px 25px;
+            font-size: 1.2em;
+            background-color: #ffcc00;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #ffaa00;
+        }
+        img {
+            max-width: 90%;
+            height: auto;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Click this button to save the world</h1>
+    <button onclick="showRandomCat()">Save the World</button>
+    <div id="cat-container"></div>
+
+    <script>
+        const catImages = [
+            "https://i.imgur.com/JqEuJ6t.jpeg",
+            "https://i.imgur.com/fHyEMsl.jpeg",
+            "https://i.imgur.com/tQqVjzF.jpeg",
+            "https://i.imgur.com/JR5In2x.jpeg",
+            "https://i.imgur.com/jQy6qOz.jpeg"
+        ];
+
+        function showRandomCat() {
+            const randomIndex = Math.floor(Math.random() * catImages.length);
+            const catUrl = catImages[randomIndex];
+            document.getElementById("cat-container").innerHTML = `<img src="${catUrl}" alt="Goofy Cat">`;
+        }
+    </script>
+
+</body>
+</html>
