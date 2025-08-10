@@ -42,18 +42,15 @@
     <div id="cat-container"></div>
 
     <script>
-        const catImages = [
-            "https://i.imgur.com/JqEuJ6t.jpeg",
-            "https://i.imgur.com/fHyEMsl.jpeg",
-            "https://i.imgur.com/tQqVjzF.jpeg",
-            "https://i.imgur.com/JR5In2x.jpeg",
-            "https://i.imgur.com/jQy6qOz.jpeg"
-        ];
-
-        function showRandomCat() {
-            const randomIndex = Math.floor(Math.random() * catImages.length);
-            const catUrl = catImages[randomIndex];
-            document.getElementById("cat-container").innerHTML = `<img src="${catUrl}" alt="Goofy Cat">`;
+        async function showRandomCat() {
+            try {
+                const res = await fetch("https://api.thecatapi.com/v1/images/search");
+                const data = await res.json();
+                const catUrl = data[0].url;
+                document.getElementById("cat-container").innerHTML = `<img src="${catUrl}" alt="Random Cat">`;
+            } catch (error) {
+                document.getElementById("cat-container").innerHTML = "<p>Oops! Couldn't load a cat right now.</p>";
+            }
         }
     </script>
 
